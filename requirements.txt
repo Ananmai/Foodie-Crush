@@ -1,0 +1,12 @@
+Django>=5.0.0
+asgiref>=3.9.1
+django-cors-headers
+django-filter
+djangorestframework
+python-dotenv
+sqlparse
+whitenoise
+gunicorn
+psycopg2-binary
+Pillow
+razorpay
