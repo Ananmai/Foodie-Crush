@@ -612,7 +612,13 @@ async function doLogin(e) {
   clearAlert('login');
   try {
     const r = await fetch(TOKEN_API, {method:'POST', headers:ph(), body:JSON.stringify({email:document.getElementById('lEmail').value, password:document.getElementById('lPass').value})});
-    const d = await r.json();
+    const text = await r.text();
+    let d;
+    try {
+        d = JSON.parse(text);
+    } catch(e) {
+        throw new Error(`Server error (${r.status}). Please check if the backend is running.`);
+    }
     if (!r.ok) throw new Error(d.non_field_errors?.[0] || 'Invalid credentials.');
     token = d.token;
     uname = document.getElementById('lEmail').value.split('@')[0];
@@ -633,7 +639,13 @@ async function doSignup(e) {
   clearAlert('signup');
   try {
     const r = await fetch(CREATE_API, {method:'POST', headers:ph(), body:JSON.stringify({name, email, password:pass})});
-    const d = await r.json();
+    const text = await r.text();
+    let d;
+    try {
+        d = JSON.parse(text);
+    } catch(e) {
+        throw new Error(`Server error (${r.status}). Please check if the backend is running.`);
+    }
     if (!r.ok) {
       const msgs = Object.entries(d).map(([k,v])=>(k==='non_field_errors'?'':k+': ')+(Array.isArray(v)?v[0]:v));
       throw new Error(msgs.join(' | ') || 'Signup failed.');
