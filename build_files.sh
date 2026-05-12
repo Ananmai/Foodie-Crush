@@ -2,10 +2,10 @@
 
 echo "BUILD START"
 
-# Install dependencies
-python3 -m pip install -r requirements.txt
+# Use the specific python version defined in vercel.json
+python3.12 -m pip install -r requirements.txt
 
 # Collect static files
-python3 manage.py collectstatic --noinput --clear
+python3.12 manage.py collectstatic --noinput --clear
 
 echo "BUILD END"
