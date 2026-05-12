@@ -2,14 +2,14 @@
 
 echo "BUILD START"
 
-# Ensure pip is up to date and install dependencies
-python3.12 -m pip install --upgrade pip
-python3.12 -m pip install -r requirements.txt
+# Create a virtual environment to avoid PEP 668 restriction
+python3.12 -m venv venv
+source venv/bin/activate
 
-# Verify installation
-python3.12 -c "import django; print('Django version:', django.get_version())"
+# Install dependencies
+pip install -r requirements.txt
 
 # Collect static files
-python3.12 manage.py collectstatic --noinput --clear
+python manage.py collectstatic --noinput --clear
 
 echo "BUILD END"
